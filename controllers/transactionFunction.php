@@ -1,21 +1,76 @@
 <?php include "../models/transactionModel.php";
+$submit = isset($_REQUEST['submit'])?$_REQUEST['submit']:NULL;
+$db = new transactionModel();
 
+$page = isset($_SESSION['page'])?$_SESSION['page']:NULL;
+
+
+//supplier
+if($page =="a_sup.php"):
+    $getsup = $db->getsup();
+endif;
+
+if($submit == "addsup"):
+    $supplier['name'] = isset($_REQUEST['supname'])?$_REQUEST['supname']:NULL;
+    $supplier['address'] = isset($_REQUEST['address'])?$_REQUEST['address']:NULL;
+    $supplier['contnum'] = isset($_REQUEST['contnum'])?$_REQUEST['contnum']:NULL;
+    $supplier['email'] = isset($_REQUEST['email'])?$_REQUEST['email']:NULL;
+
+    $addsup = $db->addsup($supplier);
+    if($addsup){
+        echo "Hello";
+    }
+endif;
+
+//product
+if($page == "a_prod.php"):
+    $getcat = $db->getcat();
+    $getsup = $db->getsup();
+    $getprod = $db->getprod();
+    
+endif;
+if($submit == "addproduct"):
 $product['name']= isset($_REQUEST['prodname'])?$_REQUEST['prodname']:NULL;
 $product['quantity']= isset($_REQUEST['qty'])?$_REQUEST['qty']:NULL;
 $product['product_category']= isset($_REQUEST['prodcat'])?$_REQUEST['prodcat']:NULL;
 $product['price']= isset($_REQUEST['price'])?$_REQUEST['price']:NULL;
+endif;
 
-print_r($product);
-echo "Hello";
-
-
+//category
+if($submit == "addcat"):
 $category['name']= isset($_REQUEST['catname'])?$_REQUEST['catname']:NULL;
-print_r($category);
+$addcat = $db->addcat($category);
 
+endif;
+
+//customer
+if($submit == "addcustomer"):
 $customer['fname']= isset($_REQUEST['fname'])?$_REQUEST['fname']:NULL;
 $customer['mname']= isset($_REQUEST['mname'])?$_REQUEST['mname']:NULL;
 $customer['lname']= isset($_REQUEST['lname'])?$_REQUEST['lname']:NULL;
+$customer['address']= isset($_REQUEST['address'])?$_REQUEST['address']:NULL;
+$customer['contnum']= isset($_REQUEST['contnum'])?$_REQUEST['contnum']:NULL;
 
+$addcustomer = $db->addcustomer($customer);
+
+endif;
+if($page == "a_cus.php"):
+    $getcustomers = $db->getcustomers();
+endif;
+
+//user
+if($submit == "adduser"):
+$user['username']= isset($_REQUEST['username'])?$_REQUEST['username']:NULL;
+$user['password']= isset($_REQUEST['password'])?$_REQUEST['password']:NULL;
+$user['fname']= isset($_REQUEST['fname'])?$_REQUEST['fname']:NULL;
+$user['lname']= isset($_REQUEST['lname'])?$_REQUEST['lname']:NULL;
+$user['mname']= isset($_REQUEST['mname'])?$_REQUEST['mname']:NULL;
+$user['contact']= isset($_REQUEST['contact'])?$_REQUEST['contact']:NULL;
+$user['role1']= isset($_REQUEST['role1'])?$_REQUEST['role1']:NULL;
+if(!$user['role1']){
+    $user['role2']= isset($_REQUEST['role2'])?$_REQUEST['role2']:NULL;
+}
+endif;
 
 
 
@@ -39,12 +94,12 @@ $customer['lname']= isset($_REQUEST['lname'])?$_REQUEST['lname']:NULL;
 
 
 $action = isset($_REQUEST['action'])?$_REQUEST['action']:NULL;
-print_r($action);
+//print_r($action);
 
 $tm = new transactionModel();
 
 $user= isset($_REQUEST['user'])?$_REQUEST['user']:NULL;
-print_r($user);
+//print_r($user);
 
 if($action == 'transact'){
     $transaction['fullid']= isset($_REQUEST['fullid'])?$_REQUEST['fullid']:NULL;
@@ -58,7 +113,7 @@ if($action == 'transact'){
     // }
     
 }
-print_r($action);
+//print_r($action);
 if($action == 'addmember'){
     $memberID = rand(100,1000);
     $checkID = $tm->checkid($memberID);

@@ -3,8 +3,18 @@
 
 class transactionModel extends DBconnection {
 
-    function getaccount($trans){
-        $query = "SELECT `accID`, `memberID`, `balance`, `dailyPayment`, `startDate`, `dueDate`, `status` FROM `account`";
+
+    function addcat($category){
+        $query = "INSERT INTO `category`(`catname`) VALUES (\"".$category['name']."\")";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    function getcat(){
+        $query = "SELECT * FROM category`";
         $result = mysqli_query($this->conn, $query);
         $res = array();
         while ($row = mysqli_fetch_array($result)){
@@ -12,36 +22,64 @@ class transactionModel extends DBconnection {
         }
         return ($result->num_rows>0)? $res: FALSE;
     }
-    function addaccount($account){
-        
-    }
-    function addmember($member){
-        $query = "INSERT INTO `member`(`memberID`, `fname`, `lname`, `contact`, `address`, `rating`) 
-        VALUES (\"".$member['memberID']."\",\"".$member['fname']."\",\"".$member['lname']."\",
-        \"".$member['contact']."\",\"".$member['address']."\",\"".$member['rating']."\")";
+
+    function getsup(){
+        $query = "SELECT * FROM suppliers`";
         $result = mysqli_query($this->conn, $query);
-		    if(!$result) {
-				die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
-				return FALSE;
-			}
-			return TRUE;
+        $res = array();
+        while ($row = mysqli_fetch_array($result)){
+            array_push($res, $row);
+        }
+        return ($result->num_rows>0)? $res: FALSE;
     }
-    function checkid($memberID){
-        $query = "SELECT * FROM member WHERE `memberID` = $memberID";
+    function addsup($supplier){
+        $query = "INSERT INTO `suppliers`( `supname`, `address`, `contnum`, `email`) 
+        VALUES (\"".$supplier['name']."\",\"".$supplier['address']."\",\"".$supplier['contnum']."\",\"".$supplier['email']."\")";
         $result = mysqli_query($this->conn, $query);
-		if(!$result) {
-			die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
-			return FALSE;
-		}
-		return (($result->num_rows>0)? TRUE: FALSE);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
     }
 
-    function addtranscation(){
-
+    function addprod($product){
+        $query = "INSERT INTO `products`(`prodname`, `quantity`, `cost`, `catid`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
     }
-    
-    function addloan(){
+    function getprod(){
+        $query = "SELECT * FROM products`";
+        $result = mysqli_query($this->conn, $query);
+        $res = array();
+        while ($row = mysqli_fetch_array($result)){
+            array_push($res, $row);
+        }
+        return ($result->num_rows>0)? $res: FALSE;
+    }
 
+    function addcustomer($customer){
+        $query = "INSERT INTO `customer`( `fname`, `mname`, `lname`, `address`, `contnum`) 
+        VALUES (\"".$customer['fname']."\",\"".$customer['mname']."\",\"".$customer['lname']."\",\"".$customer['address']."\",\"".$customer['contnum']."\")";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    function getcustomers(){
+        $query = "SELECT * FROM customer`";
+        $result = mysqli_query($this->conn, $query);
+        $res = array();
+        while ($row = mysqli_fetch_array($result)){
+            array_push($res, $row);
+        }
+        return ($result->num_rows>0)? $res: FALSE;
     }
     
 }

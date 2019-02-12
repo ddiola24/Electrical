@@ -1,6 +1,12 @@
 <?php session_start();  
-print_r($_SESSION['role']);
+if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
+  header("location: ../index.php");
+} 
+unset($_SESSION['page']);
+$_SESSION['page'] =  basename($_SERVER['PHP_SELF']);
 include "../controllers/transactionFunction.php"; 
+$db = new userModel();
+$data =$db->getuser($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,17 +60,6 @@ include "../controllers/transactionFunction.php";
             </div>
 
             <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Ayah</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
 
            <?php include "structure/sidemenu.php";
             include "structure/topnav.php"; ?>
@@ -128,7 +123,7 @@ include "../controllers/transactionFunction.php";
 
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+                                <button type="submit" name="submit" value="addsup" class="btn btn-primary">Save changes</button>
                               </div>
                                 </form>
                                   <!-- form -->
@@ -150,24 +145,26 @@ include "../controllers/transactionFunction.php";
                       <thead>
                         <tr>
                           <th>Supplier Name</th>
-                          <th>Address/th>
+                          <th>Address </th>
                           <th>Contact Number</th>
                           <th>Email</th>
                           <th style="width: 25%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <?php error_reporting(E_ERROR | E_PARSE); foreach ($getsup as $index => $sup): ?>
                         <tr>
-                          <td> Circuit Breaker </td>
-                          <td> ###### </td>
-                          <td> Circuits </td>
-                          <td> Wang Corp. </td>
+                          <td> <?php echo $sup['supname'] ?> </td>
+                          <td> <?php echo $sup['contnum'] ?> </td>
+                          <td> <?php echo $sup['email'] ?> </td>
+                          <td> <?php echo $sup['address'] ?> </td>
                           <td>
                             <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                             <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>
                         </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- end product list -->

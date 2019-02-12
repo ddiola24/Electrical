@@ -1,6 +1,12 @@
 <?php session_start();  
-print_r($_SESSION['role']);
+if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
+  header("location: ../index.php");
+} 
+unset($_SESSION['page']);
+$_SESSION['page'] =  basename($_SERVER['PHP_SELF']);
 include "../controllers/transactionFunction.php"; 
+$db = new userModel();
+$data =$db->getuser($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,16 +63,7 @@ include "../controllers/transactionFunction.php";
 
             <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Ayah</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
+            
 
             <?php include "structure/sidemenu.php";
             include "structure/topnav.php"; ?>
@@ -111,8 +108,19 @@ include "../controllers/transactionFunction.php";
                                   <label for="prodname">Product Name * </label>
                                   <input type="text" id="prodname" class="form-control" name="prodname" required />
 
-                                  <label for="prodcat">Product Category * </label>
-                                  <input type="text" id="prodcat" class="form-control" name="prodcat" data-parsley-trigger="change" required />
+                                  <label for="category">Category</label>
+                                    <select name="status" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getcat as $index => $cat): ?>
+                                      <option value="<?php echo $cat['catid']; ?>"><?php echo $cat['catname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+
+                                  <label for="category">Supplier</label>
+                                    <select name="status" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getsup as $index => $sup): ?>
+                                      <option value="<?php echo $sup['supid']; ?>"><?php echo $sup['supname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
 
                                   <label for="qty">Quantity * </label>
                                   <input type="number" id="qty" class="form-control" name="qty" data-parsley-trigger="change" required />
