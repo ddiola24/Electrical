@@ -19,7 +19,7 @@ session_destroy();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>| Bakery |</title>
+    <title>| Electrical |</title>
 
     <!-- Bootstrap -->
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,8 +69,8 @@ session_destroy();
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-money"></i> Bakery</h1>
-                  <p>©2019 All Rights Reserved. Bakery managment system. Privacy and Terms</p>
+                  <h1><i class="fa fa-money"></i> Electrical</h1>
+                  <p>©2019 All Rights Reserved. Electrical managment system. Privacy and Terms</p>
                 </div>
               </div>
             </form>
