@@ -47,7 +47,7 @@ class transactionModel extends DBconnection {
 }
 class userModel extends DBconnection {
     function getuser($username){
-        $query = "SELECT user_id, username, fname, lname, reg_date ,role FROM user
+        $query = "SELECT user_id, username, fname, lname, regDate ,role FROM user
 				WHERE username = \"".$username."\" LIMIT 1";
         $result = mysqli_query($this->conn, $query);
         if(!$result) {
