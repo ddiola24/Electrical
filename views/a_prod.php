@@ -44,6 +44,16 @@ $data =$db->getuser($_SESSION['username']);
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <script src="../build/js/typeahead.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('input.typeahead').typeahead({
+        name: 'typeahead',
+        remote:'search.php?key=%QUERY',
+        limit : 10
+    });
+  });
+    </script>
 
 
     <!-- Custom Theme Style -->
@@ -92,7 +102,7 @@ $data =$db->getuser($_SESSION['username']);
                     <div class="btn-toolbar">
                       <div class="btn-group">
                         <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"> Add Product </button>
-                          <!-- Add Product -->
+                        <!-- Add Product -->
                           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -109,41 +119,26 @@ $data =$db->getuser($_SESSION['username']);
                                   <input type="text" id="prodname" class="form-control" name="prodname" required />
 
                                   <label for="category">Category</label>
-                                    <select name="status" class="form-control">
+                                    <select name="catid" class="form-control">
                                       <?php error_reporting(E_ERROR | E_PARSE); foreach ($getcat as $index => $cat): ?>
                                       <option value="<?php echo $cat['catid']; ?>"><?php echo $cat['catname']; ?></option>
                                       <?php endforeach; ?>
                                     </select>
 
-                                  <label for="category">Supplier</label>
-                                    <select name="status" class="form-control">
-                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getsup as $index => $sup): ?>
-                                      <option value="<?php echo $sup['supid']; ?>"><?php echo $sup['supname']; ?></option>
-                                      <?php endforeach; ?>
-                                    </select>
-
-                                  <label for="qty">Quantity * </label>
-                                  <input type="number" id="qty" class="form-control" name="qty" data-parsley-trigger="change" required />
-
-                                  <label for="price">Price * </label>
-                                  <input type="number" id="price" class="form-control" name="price" data-parsley-trigger="change" required />
-
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                                </form>
-                                  <!-- form -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" name="submit" value="addproduct" class="btn btn-primary">Save changes</button>
+                                </div>
+                                  </form>
+                                    <!-- form -->
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                          <!-- add product -->
-
-
+                        <!-- add product -->
 
                         <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2"> Add Category </button>
-                        <!-- Add Product -->
+                        <!-- Add Category -->
                           <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -159,17 +154,98 @@ $data =$db->getuser($_SESSION['username']);
                                   <label for="catname">Category Name * </label>
                                   <input type="text" id="catname" class="form-control" name="catname" required />
 
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                                </form>
-                                  <!-- form -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" name="submit" value="addcat" class="btn btn-primary">Save changes</button>
+                                </div>
+                                  </form>
+                                    <!-- form -->
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                          <!-- add product -->
+                        <!-- add category -->
+
+                        <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg3"> Add Sales </button>
+                        <!-- Add Sales -->
+                          <div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">ADD SALES</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- form -->
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+
+                                  <label for="category">Product</label>
+                                    <select name="status" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getprod as $index => $prod): ?>
+                                      <option value="<?php echo $prod['prodid']; ?>"><?php echo $prod['prodname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+
+                                  <label for="custname">Customer Name * </label>
+                                  <input type="text" id="custname" class="form-control" name="custname" required />
+                                  <label for="quantity">Sale Quantity * </label>
+                                  <input type="number" id="quantity" class="form-control" name="quantity" required />
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" name="submit" value="add_sale" class="btn btn-primary">Save changes</button>
+                                </div>
+                                  </form>
+                                    <!-- form -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- add sales -->
+
+                        <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg4"> Add Purchase </button>
+                        <!-- Add Purchase -->
+                          <div class="modal fade bs-example-modal-lg4" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">ADD PURCHASE</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- form -->
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+
+                                  <label for="category">Supplier</label>
+                                    <select name="supplier" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getsup as $index => $sup): ?>
+                                      <option value="<?php echo $sup['supid']; ?>"><?php echo $sup['supname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+
+                                  <label for="catname">Quantity * </label>
+                                  <input type="number" id="qty" class="form-control" name="qty" required />
+
+                                  <label for="catname">Cost * </label>
+                                  <input type="number" id="cost" class="form-control" name="cost" required />
+
+                                  
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button type="submit" name="submit" value="addpurchase" class="btn btn-primary">Save changes</button>
+                                </div>
+                                  </form>
+                                    <!-- form -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <!-- add purchase -->
 
                       </div>
                     </div>
@@ -182,25 +258,27 @@ $data =$db->getuser($_SESSION['username']);
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
+                          <th>Product ID</th>
                           <th>Product Name</th>
-                          <th>Product Code</th>
                           <th>Category</th>
-                          <th>Supplier</th>
+                          <th>Stock on Hand</th>
                           <th style="width: 25%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <?php error_reporting(E_ERROR | E_PARSE); foreach ($getprod as $index => $prod): ?>
                         <tr>
-                          <td> Circuit Breaker </td>
-                          <td> ###### </td>
-                          <td> Circuits </td>
-                          <td> Wang Corp. </td>
+                          <td> <?php echo $prod['prodid']; ?> </td>
+                          <td> <?php echo $prod['prodname']; ?> </td>
+                          <td> <?php echo $prod['catname']; ?> </td>
+                          <td> <?php echo $prod['quantity']; ?> </td>
                           <td>
                             <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                             <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>
                         </tr>
+                      <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- end product list -->

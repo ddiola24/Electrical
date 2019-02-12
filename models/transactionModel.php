@@ -5,7 +5,7 @@ class transactionModel extends DBconnection {
 
 
     function addcat($category){
-        $query = "INSERT INTO `category`(`catname`) VALUES (\"".$category['name']."\")";
+        $query = "INSERT INTO `category`(`catname`) VALUES (\"".$category['catname']."\")";
         $result = mysqli_query($this->conn, $query);
             if(!$result) {
                 die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
@@ -44,7 +44,7 @@ class transactionModel extends DBconnection {
     }
 
     function addprod($product){
-        $query = "INSERT INTO `products`(`prodname`, `quantity`, `cost`, `catid`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])";
+        $query = "INSERT INTO `products`(`prodname`, `quantity`, `catid`) VALUES (\"".$product['prodname']."\",\"".$product['quantity']."\",\"".$product['catid']."\")";
         $result = mysqli_query($this->conn, $query);
             if(!$result) {
                 die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
@@ -53,7 +53,7 @@ class transactionModel extends DBconnection {
             return TRUE;
     }
     function getprod(){
-        $query = "SELECT * FROM products`";
+        $query = "SELECT * FROM products JOIN category on category.catid = products.catid";
         $result = mysqli_query($this->conn, $query);
         $res = array();
         while ($row = mysqli_fetch_array($result)){
@@ -80,8 +80,15 @@ class transactionModel extends DBconnection {
             array_push($res, $row);
         }
         return ($result->num_rows>0)? $res: FALSE;
+    }   
+}
+class recordsModel extends DBconnection {
+    function addSales($sales){
+
     }
-    
+    function addPurchase($purchase){
+
+    }
 }
 class userModel extends DBconnection {
     function getuser($username){
