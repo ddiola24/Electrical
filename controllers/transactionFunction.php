@@ -1,5 +1,42 @@
 <?php include "../models/transactionModel.php";
 
+$product['name']= isset($_REQUEST['prodname'])?$_REQUEST['prodname']:NULL;
+$product['quantity']= isset($_REQUEST['qty'])?$_REQUEST['qty']:NULL;
+$product['product_category']= isset($_REQUEST['prodcat'])?$_REQUEST['prodcat']:NULL;
+$product['price']= isset($_REQUEST['price'])?$_REQUEST['price']:NULL;
+
+print_r($product);
+echo "Hello";
+
+
+$category['name']= isset($_REQUEST['catname'])?$_REQUEST['catname']:NULL;
+print_r($category);
+
+$customer['fname']= isset($_REQUEST['fname'])?$_REQUEST['fname']:NULL;
+$customer['mname']= isset($_REQUEST['mname'])?$_REQUEST['mname']:NULL;
+$customer['lname']= isset($_REQUEST['lname'])?$_REQUEST['lname']:NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $action = isset($_REQUEST['action'])?$_REQUEST['action']:NULL;
 print_r($action);
 

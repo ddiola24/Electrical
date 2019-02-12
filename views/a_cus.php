@@ -1,11 +1,11 @@
 <?php session_start();  
-print_r($_SESSION['role']);
-if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
-  header("location: ../index.php");
-} 
+// print_r($_SESSION['role']);
+// if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
+//   header("location: ../index.php");
+// } 
 include "../controllers/userFunction.php"; 
-$db = new userModel();
-$data =$db->getuser($_SESSION['username']);
+// $db = new userModel();
+// $data =$db->getuser($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -163,12 +163,12 @@ $data =$db->getuser($_SESSION['username']);
         </div>
         <!-- /top navigation -->
 
-        <!-- page content -->
+<!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3> Products </h3>
+                <h3> Customer </h3>
               </div>
 
               <div class="title_right">
@@ -178,6 +178,7 @@ $data =$db->getuser($_SESSION['username']);
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">Go!</button>
                     </span>
+                    
                   </div>
                 </div>
               </div>
@@ -190,11 +191,51 @@ $data =$db->getuser($_SESSION['username']);
                 <div class="x_panel">
                   <div class="x_title">
                   <!-- button -->
-                    <div class="title_center">
-                      <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-dark">
-                          <input type="radio" name="options" id="add_cus"> Add Customer
-                        </label>
+                    <div class="btn-toolbar">
+                      <div class="btn-group">
+
+                        <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2"> Add Customer </button>
+                        <!-- Add Product -->
+                          <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">ADD CUSTOMER</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- form -->
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <label for="fname">First Name * </label>
+                                  <input type="text" id="fname" class="form-control" name="fname" required />
+
+                                  <label for="mname">Middle Name * </label>
+                                  <input type="text" id="mname" class="form-control" name="mname" required />
+
+                                  <label for="lname">Last Name * </label>
+                                  <input type="text" id="lname" class="form-control" name="lname" required />
+
+                                  <label for="address">Address * </label>
+                                  <input type="text" id="address" class="form-control" name="address" required />
+
+                                  <label for="contnum">Contact Number * </label>
+                                  <input type="text" id="contnum" class="form-control" name="contnum" required />
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                                </form>
+                                  <!-- form -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- add product -->
+
+                      </div>
                     </div>
                   <!-- button -->
                     <div class="clearfix"></div>
@@ -205,18 +246,28 @@ $data =$db->getuser($_SESSION['username']);
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
-                          <th> Last Name </th>
-                          <th> First Name </th>
-                          <th> Address </th>
-                          <th> Contact Number </th>
+                          <th>Customer ID</th>
+                          <th>First Name</th>
+                          <th>Middle Name</th>
+                          <th>Last Name</th>
+                          <th>Address</th>
+                          <th>Contact Number</th>
+                          <th style="width: 25%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td> Wang </td>
-                          <td> Demi </td>
-                          <td> Matina Pangi, Davao City </td>
-                          <td> +63956478951 </td>
+                          <td> #### </td>
+                          <td> Circuit Breaker </td>
+                          <td> ###### </td>
+                          <td> Circuits </td>
+                          <td> Wang Corp. </td>
+                          <td> +63###### </td>
+                          <td>
+                            <a href="#" class="btn btn-primary"><i class="fa fa-folder"></i> View </a>
+                            <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Update </a>
+                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete </a>
+                          </td>
                         </tr>
                       </tbody>
                     </table>

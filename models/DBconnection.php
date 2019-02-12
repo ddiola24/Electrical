@@ -6,7 +6,7 @@
 			$dbhost = "localhost:3306";
 			$dbuser = "root";
 			$dbpass = "";
-			$dbname = "lendweb";
+			$dbname = "electrical";
 			
 			$this->conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
 			if(!$this->conn) {

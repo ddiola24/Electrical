@@ -1,11 +1,12 @@
-<?php session_start();  
-print_r($_SESSION['role']);
-if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
-  header("location: ../index.php");
-} 
-include "../controllers/userFunction.php"; 
-$db = new userModel();
-$data =$db->getuser($_SESSION['username']);
+   <?php include "../controllers/transactionFunction.php"; //session_start();  
+// print_r($_SESSION['role']);
+// if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
+//   header("location: ../index.php");
+// } 
+// include "../controllers/userFunction.php"; 
+// $db = new userModel();
+// $data =$db->getuser($_SESSION['username']);
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,6 +177,7 @@ $data =$db->getuser($_SESSION['username']);
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">Go!</button>
                     </span>
+                    
                   </div>
                 </div>
               </div>
@@ -188,17 +190,78 @@ $data =$db->getuser($_SESSION['username']);
                 <div class="x_panel">
                   <div class="x_title">
                   <!-- button -->
-                    <div class="title_center">
-                      <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-dark">
-                          <input type="radio" name="options" id="add_prod"> Add Product
-                        </label>
-                        <label class="btn btn-dark">
-                          <input type="radio" name="options" id="add_cat"> Add Category
-                        </label>
-                        <label class="btn btn-dark">
-                          <input type="radio" name="options" id="add_sup"> Add Supplier
-                        </label>
+                    <div class="btn-toolbar">
+                      <div class="btn-group">
+                        <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"> Add Product </button>
+                          <!-- Add Product -->
+                          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">ADD PRODUCT</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- form -->
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <label for="prodname">Product Name * </label>
+                                  <input type="text" id="prodname" class="form-control" name="prodname" required />
+
+                                  <label for="prodcat">Product Category * </label>
+                                  <input type="text" id="prodcat" class="form-control" name="prodcat" data-parsley-trigger="change" required />
+
+                                  <label for="qty">Quantity * </label>
+                                  <input type="number" id="qty" class="form-control" name="qty" data-parsley-trigger="change" required />
+
+                                  <label for="price">Price * </label>
+                                  <input type="number" id="price" class="form-control" name="price" data-parsley-trigger="change" required />
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                                </form>
+                                  <!-- form -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- add product -->
+
+
+
+                        <button class="btn btn-dark" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2"> Add Category </button>
+                        <!-- Add Product -->
+                          <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                  </button>
+                                  <h4 class="modal-title" id="myModalLabel">ADD CATEGORY</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- form -->
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <label for="catname">Category Name * </label>
+                                  <input type="text" id="catname" class="form-control" name="catname" required />
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                                </form>
+                                  <!-- form -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- add product -->
+
+                      </div>
                     </div>
                   <!-- button -->
                     <div class="clearfix"></div>
@@ -223,9 +286,9 @@ $data =$db->getuser($_SESSION['username']);
                           <td> Circuits </td>
                           <td> Wang Corp. </td>
                           <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                            <a href="#" class="btn btn-primary"><i class="fa fa-folder"></i> View </a>
+                            <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Update </a>
+                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>
                         </tr>
                       </tbody>

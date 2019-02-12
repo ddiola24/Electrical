@@ -1,11 +1,11 @@
 <?php session_start();  
-print_r($_SESSION['role']);
-if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
-  header("location: ../index.php");
-} 
+// print_r($_SESSION['role']);
+// if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
+//   header("location: ../index.php");
+// } 
 include "../controllers/userFunction.php"; 
-$db = new userModel();
-$data =$db->getuser($_SESSION['username']);
+// $db = new userModel();
+// $data =$db->getuser($_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

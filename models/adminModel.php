@@ -33,25 +33,6 @@ class loginModel extends DBconnection {
 }
 
 class adminModel extends DBconnection {
-
-    function addMember($member){
-        $query = "";
-    }
-    function deleteMemeber($member){
-        $query = "";
-    }
-    function updateMember($member){
-        $query = "";
-    }
-    function addCollector($collector){
-        $query = "";
-    }
-    function deleteCollector($collector){
-        $query = "";
-    }
-    function updateCollector($collector){
-        $query = "";
-    }
 }
 class userModel extends DBconnection {
     function getuser($username){
