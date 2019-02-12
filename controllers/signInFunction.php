@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
         if($getuser->role == 'admin'){
             echo "<-ADMIN LOG-IN->";
             session_start();
-            $url = "Location: ./views/admin.php";
+            $url = "Location: ./views/a_home.php";
             $_SESSION['username'] =  $getuser->username;
             $_SESSION['password'] =  $getuser->password;
             $_SESSION['role'] =  $getuser->role;
@@ -27,10 +27,10 @@ if(isset($_POST['submit'])){
         if($getuser->role == 'user'){
             echo "<-USER LOG-IN->";
         }
-        if($getuser->role == 'collector'){
-            echo "<-COLLECTOR LOG-IN->";
+        if($getuser->role == 'registrar'){
+            echo "<-REGISTRAR LOG-IN->";
             session_start();
-            $url = "Location: ./views/home.php";
+            $url = "Location: ./views/u_home.php";
             $_SESSION['username'] =  $getuser->username;
             $_SESSION['password'] =  $getuser->password;
             $_SESSION['role'] =  $getuser->role;
