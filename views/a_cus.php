@@ -173,9 +173,9 @@ include "../controllers/transactionFunction.php";
                           <td> Wang Corp. </td>
                           <td> +63###### </td>
                           <td>
-                            <a href="#" class="btn btn-primary"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete </a>
+                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
+                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>
                         </tr>
                       </tbody>
