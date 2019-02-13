@@ -3,7 +3,7 @@
 
 class transactionModel extends DBconnection {
 
-
+    //category
     function addcat($category){
         $query = "INSERT INTO `category`(`catname`) VALUES (\"".$category['catname']."\")";
         $result = mysqli_query($this->conn, $query);
@@ -22,7 +22,16 @@ class transactionModel extends DBconnection {
         }
         return ($result->num_rows>0)? $res: FALSE;
     }
-
+    function deletecat($id){
+        $query = "DELETE FROM category WHERE catid = $id";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    //supplier
     function getsup(){
         $query = "SELECT * FROM suppliers`";
         $result = mysqli_query($this->conn, $query);
@@ -42,7 +51,16 @@ class transactionModel extends DBconnection {
             }
             return TRUE;
     }
-
+    function deletesup($id){
+        $query="DELETE FROM suppliers WHERE suppid = $id";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    //product
     function addprod($product){
         $query = "INSERT INTO `products`(`prodname`, `quantity`, `catid`) VALUES (\"".$product['prodname']."\",\"".$product['quantity']."\",\"".$product['catid']."\")";
         $result = mysqli_query($this->conn, $query);
@@ -70,7 +88,16 @@ class transactionModel extends DBconnection {
             }
             return TRUE;
     }
-
+    function deleteprod($id){
+        $query="DELETE FROM products WHERE prodid = $id";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    //customer
     function addcustomer($customer){
         $query = "INSERT INTO `customer`( `fname`, `mname`, `lname`, `address`, `contnum`) 
         VALUES (\"".$customer['fname']."\",\"".$customer['mname']."\",\"".$customer['lname']."\",\"".$customer['address']."\",\"".$customer['contnum']."\")";
@@ -90,7 +117,16 @@ class transactionModel extends DBconnection {
         }
         return ($result->num_rows>0)? $res: FALSE;
     }
-
+    function deletecustomer($id){
+        $query="DELETE FROM `customer` WHERE cusid = $id";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
+    }
+    //user
     function adduser($user){
         $query= "INSERT INTO `user`(`username`,`password`, `fname`, `mname`, `lname`,`role`) 
         VALUES (\"".$user['username']."\",\"".$user['password']."\",\"".$user['fname']."\",\"".$user['mname']."\",\"".$user['lname']."\",\"".$user['role']."\")";
@@ -102,7 +138,7 @@ class transactionModel extends DBconnection {
             return TRUE;
     }
     function getuser(){
-         $query = "SELECT * FROM user";
+        $query = "SELECT * FROM user";
         $result = mysqli_query($this->conn, $query);
         $res = array();
         while ($row = mysqli_fetch_array($result)){
@@ -148,6 +184,15 @@ class recordsModel extends DBconnection {
             array_push($res, $row);
         }
         return ($result->num_rows>0)? $res: FALSE;
+    }
+    function deleteRecord($id){
+        $query ="DELETE FROM record WHERE recid = $id";
+        $result = mysqli_query($this->conn, $query);
+            if(!$result) {
+                die("<strong>WARNING:</strong><br>" . mysqli_error($this->conn));
+                return FALSE;
+            }
+            return TRUE;
     }
 }
 class userModel extends DBconnection {
