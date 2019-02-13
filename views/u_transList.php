@@ -56,12 +56,12 @@ $data =$db->getuser($_SESSION['username']);
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
-            <div class="profile clearfix">
+<!--             <div class="profile clearfix">
               <div class="profile_info">
                 <span>Welcome,</span>
                 <h2>Ayah</h2>
               </div>
-            </div>
+            </div> -->
             <!-- /menu profile quick info -->
 
             <br />
