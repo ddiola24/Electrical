@@ -9,12 +9,11 @@ if(isset($_POST['submit'])){
     $username = $db->escape_string($user);
     $password = $db->escape_string($pass);
     
-    print_r($user);
-    print_r($pass);
+    
     $check = $db->check_user($username,$password);
     if($check){
         $getuser = $db->get_user($username,$password);
-        print_r($getuser->role);
+        //print_r($getuser->role);
         if($getuser->role == 'admin'){
             echo "<-ADMIN LOG-IN->";
             session_start();
@@ -34,7 +33,7 @@ if(isset($_POST['submit'])){
             $_SESSION['username'] =  $getuser->username;
             $_SESSION['password'] =  $getuser->password;
             $_SESSION['role'] =  $getuser->role;
-            print_r($_SESSION['username']);
+            //print_r($_SESSION['username']);
             $db->goto($url);
         }
     }else{

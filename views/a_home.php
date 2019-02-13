@@ -1,7 +1,9 @@
 <?php session_start();  
 if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
   header("location: ../index.php");
-} 
+}
+unset($_SESSION['page']);
+$_SESSION['page'] =  basename($_SERVER['PHP_SELF']);
 include "../controllers/transactionFunction.php"; 
 $db = new userModel();
 $data =$db->getuser($_SESSION['username']);
@@ -45,7 +47,7 @@ $data =$db->getuser($_SESSION['username']);
 
   <body class="nav-md">
     <div class="container body">
-      <div class="main_container">s
+      <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
@@ -100,7 +102,7 @@ $data =$db->getuser($_SESSION['username']);
                                   <input type="text" id="username" class="form-control" name="username" required />
 
                                   <label for="prodcat">Password * </label>
-                                  <input type="text" id="password" class="form-control" name="prodcat" data-parsley-trigger="change" required />
+                                  <input type="text" id="password" class="form-control" name="password" data-parsley-trigger="change" required />
 
                                   <label for="qty">First Name* </label>
                                   <input type="text" id="fname" class="form-control" name="fname" data-parsley-trigger="change" required />
@@ -154,22 +156,27 @@ $data =$db->getuser($_SESSION['username']);
                           <th>Password</th>
                           <th>Fullname</th>
                           <th>Role</th>
-                          <th style="width: 25%">#Edit</th>
+                          <th style="width: 10%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
+                         <?php error_reporting(E_ERROR | E_PARSE); foreach ($getuser as $index => $user): ?>
                         <tr>
-                          <td> Circuit Breaker </td>
-                          <td> ###### </td>
-                          <td> Circuits </td>
-                          <td> Wang Corp. </td>
-                          <td> Wang Corp. </td>
+                          <td> <?php echo $user['user_id']; ?> </td>
+                          <td> <?php echo $user['username']; ?>  </td>
+                          <td> <?php echo $user['password']; ?>  </td>
+                          <td> <?php echo $user['fname']." ".$user['mname']." ".$user['lname']; ?> </td>
+                          <td> <?php echo $user['role']; ?>  </td>
                           <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                            
+                            <a href="#" class="btn btn-info "><i class="fa fa-pencil"></i> Update </a>
+                            <form action="<?php $_PHP_SELF ?>" method="POST"  data-parsley-validate onsubmit="return confirm('Are you sure you want to delete?');">
+                            <input type="hidden" id="user_id" name="user_id" value="<?php echo $user['user_id']; ?>" />
+                            <button type="submit" name="submit" value="delete" class="btn btn-danger "><i class="fa fa-trash-o"></i> Delete </button>
+                            </form>
                           </td>
                         </tr>
+                         <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- end product list -->

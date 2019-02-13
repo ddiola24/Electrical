@@ -19,7 +19,10 @@ $data =$db->getuser($_SESSION['username']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	 
     <title>| PRODUCTS</title>
-
+    <!-- PNotify -->
+    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -114,7 +117,7 @@ $data =$db->getuser($_SESSION['username']);
                                 </div>
                                 <div class="modal-body">
                                   <!-- form -->
-                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate onsubmit="return confirm('Are you sure you want to submit?');">
                                   <label for="prodname">Product Name * </label>
                                   <input type="text" id="prodname" class="form-control" name="prodname" required />
 
@@ -150,7 +153,7 @@ $data =$db->getuser($_SESSION['username']);
                                 </div>
                                 <div class="modal-body">
                                   <!-- form -->
-                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate onsubmit="return confirm('Are you sure you want to submit?');">
                                   <label for="catname">Category Name * </label>
                                   <input type="text" id="catname" class="form-control" name="catname" required />
 
@@ -182,20 +185,31 @@ $data =$db->getuser($_SESSION['username']);
                                   <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
 
                                   <label for="category">Product</label>
-                                    <select name="status" class="form-control">
+                                    <select name="product" class="form-control">
                                       <?php error_reporting(E_ERROR | E_PARSE); foreach ($getprod as $index => $prod): ?>
                                       <option value="<?php echo $prod['prodid']; ?>"><?php echo $prod['prodname']; ?></option>
                                       <?php endforeach; ?>
                                     </select>
 
-                                  <label for="custname">Customer Name * </label>
-                                  <input type="text" id="custname" class="form-control" name="custname" required />
-                                  <label for="quantity">Sale Quantity * </label>
-                                  <input type="number" id="quantity" class="form-control" name="quantity" required />
+                                  <label for="category">Customer</label>
+                                    <select name="customer" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getcustomer as $index => $customer): ?>
+                                      <option value="<?php echo $customer['cusid']; ?>"><?php echo $customer['fname']." ".$customer['mname']." ".$customer['lname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+                                    <label for="qty">Quantity * </label>
+                                  <input type="number" id="qty" class="form-control" name="qty" required />
+
+                                  <label for="catname">Cost * </label>
+                                  <input type="number" id="cost" class="form-control" name="cost" required />
+
+                                  <label for="quantity">Remarks * </label>
+                                  <textarea id="remarks" required="required" class="form-control" name="remarks" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" data-parsley-id="4463"></textarea>
+                                  
 
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="submit" name="submit" value="add_sale" class="btn btn-primary">Save changes</button>
+                                  <button type="submit" name="submit" value="addsale" class="btn btn-primary">Save changes</button>
                                 </div>
                                   </form>
                                     <!-- form -->
@@ -218,7 +232,14 @@ $data =$db->getuser($_SESSION['username']);
                                 </div>
                                 <div class="modal-body">
                                   <!-- form -->
-                                  <form action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate>
+                                  <form  action="<?php $_PHP_SELF ?>" method="POST" id="demo-form" data-parsley-validate onsubmit="return confirm('Are you sure you want to submit?');">
+
+                                  <label for="category">Product</label>
+                                    <select name="product" class="form-control">
+                                      <?php error_reporting(E_ERROR | E_PARSE); foreach ($getprod as $index => $prod): ?>
+                                      <option value="<?php echo $prod['prodid']; ?>"><?php echo $prod['prodname']; ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
 
                                   <label for="category">Supplier</label>
                                     <select name="supplier" class="form-control">
@@ -233,11 +254,12 @@ $data =$db->getuser($_SESSION['username']);
                                   <label for="catname">Cost * </label>
                                   <input type="number" id="cost" class="form-control" name="cost" required />
 
-                                  
+                                  <label for="quantity">Remarks * </label>
+                                  <textarea id="remarks" required="required" class="form-control" name="remarks" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10" data-parsley-id="4463"></textarea>
 
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  <button type="submit" name="submit" value="addpurchase" class="btn btn-primary">Save changes</button>
+                                  <button type="submit" name="submit" value="addpurchase" class="btn btn-primary" >Save changes</button>
                                 </div>
                                   </form>
                                     <!-- form -->
@@ -262,7 +284,9 @@ $data =$db->getuser($_SESSION['username']);
                           <th>Product Name</th>
                           <th>Category</th>
                           <th>Stock on Hand</th>
-                          <th style="width: 25%">#Edit</th>
+                          <th>Price from Supplier</th>
+                          <th>Actual Price</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -272,11 +296,8 @@ $data =$db->getuser($_SESSION['username']);
                           <td> <?php echo $prod['prodname']; ?> </td>
                           <td> <?php echo $prod['catname']; ?> </td>
                           <td> <?php echo $prod['quantity']; ?> </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                          </td>
+                          <td> <?php echo $prod['cost']; ?> </td>
+                          
                         </tr>
                       <?php endforeach; ?>
                       </tbody>
@@ -295,6 +316,7 @@ $data =$db->getuser($_SESSION['username']);
         <!-- footer content -->
       </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -350,6 +372,33 @@ $data =$db->getuser($_SESSION['username']);
     <script src="../vendors/echarts/map/js/world.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+     <!-- PNotify -->
+    <script src="../vendors/pnotify/dist/pnotify.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    <?php print_r($_SESSION['script']); ?>
+    <script type="text/javascript">
+   
+      function notifyUser(message) {
+          if(message == "success") {
+              new PNotify({
+                title: 'Adding Success',
+                text: 'Successfully Added Sales on Record',
+                type: 'success',
+                styling: 'bootstrap3'
+              });
+          } else {
+              new PNotify({
+                  title: 'Adding Error',
+                text: 'Trying to sell more than your current Stock on Hand.',
+                type: 'error',
+                styling: 'bootstrap3'
+              }); 
+          }
+      }
+      
+    </script>
+    <?php unset($_SESSION['script']); ?>
 	
   </body>
 </html>
