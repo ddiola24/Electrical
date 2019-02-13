@@ -71,7 +71,7 @@ $data =$db->getuser($_SESSION['username']);
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="a_home.php" class="site_title"><img src="../vendors/img/favicon.png" width="50px" height="50px">              <img src="../vendors/img/name.PNG" width="50px" height="50px">
+              <a href="a_home.php" class="site_title"><img src="../vendors/img/favicon.png" width="50px" height="50px">              <img src="../vendors/img/name.PNG" width="150px" height="50px">
               </a>
             </div>
 
