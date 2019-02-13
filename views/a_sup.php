@@ -159,9 +159,7 @@ $data =$db->getuser($_SESSION['username']);
                           <td> <?php echo $sup['email'] ?> </td>
                           <td> <?php echo $sup['address'] ?> </td>
                           <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                            <a href="#" class="btn btn-warning btn-xs"><i class="fa fa-trophy"></i> Premium Feature </a>
                           </td>
                         </tr>
                         <?php endforeach; ?>

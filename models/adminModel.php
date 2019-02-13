@@ -12,7 +12,7 @@ class loginModel extends DBconnection {
     function check_user($username,$password){
         $query = "SELECT * FROM user
         WHERE username = \"".$username."\" AND password = \"".$password."\" LIMIT 1";
-        print_r($query);
+        //print_r($query);
         $result = mysqli_query($this->conn,$query);
         if(!$result){
             //die("<strong>WARNING:</strong><br>".mysqli_error());

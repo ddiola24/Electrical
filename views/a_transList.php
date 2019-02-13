@@ -1,7 +1,9 @@
 <?php session_start();  
 if( !isset($_SESSION['username']) && !isset($_SESSION['password']) && $_SESSION['role'] != 'admin'){
   header("location: ../index.php");
-} 
+}
+unset($_SESSION['page']);
+$_SESSION['page'] =  basename($_SERVER['PHP_SELF']);
 include "../controllers/transactionFunction.php"; 
 $db = new userModel();
 $data =$db->getuser($_SESSION['username']);
@@ -9,6 +11,7 @@ $data =$db->getuser($_SESSION['username']);
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta name="mobile-web-app-capable" content="yes">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -58,18 +61,8 @@ $data =$db->getuser($_SESSION['username']);
               <a href="a_home.php" class="site_title"><img src="../vendors/img/favicon.png" width="50px" height="50px">   Electrical Shop</span></a>
             </div>
 
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Ayah</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
+            <div class="clearfix"></div
+                    
             <?php include "structure/sidemenu.php";
             include "structure/topnav.php"; ?>
 
@@ -111,40 +104,28 @@ $data =$db->getuser($_SESSION['username']);
                       <thead>
                         <tr>
                           <th>Date</th>
+                          <th>Product Name</th>
                           <th>Transaction Type</th>
                           <th>Quantity</th>
                           <th>Cost</th>
-                          <th>Record Name</th>
-                          <th>Price</th>
-                          <th>Amount</th>
+                          <th>Supplier - Customer</th>
                           <th>Stock</th>
                           <th>Remarks</th>
-                          <th>Record ID</th>
-                          <th>Product ID</th>
-                          <th>Customer ID</th>
-                          <th style="width: 25%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <?php error_reporting(E_ERROR | E_PARSE); foreach ($getRecords as $index => $records): ?>
                         <tr>
-                          <td> mm/dd/yyyy </td>
-                          <td> counter </td>
-                          <td>  300 </td>
-                          <td> $500</td>
-                          <th> City Mechanicals </th>
-                          <th> $300 </th>
-                          <th> $200 </th>
-                          <th> 100 </th>
-                          <th> good s</th>
-                          <th> 123456 </th>
-                          <th> 654123 </th>
-                          <th> 0101010 s</th>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                          </td>
+                          <td> <?php echo $records['date'] ?></td>
+                          <td> <?php echo $records['prodname'] ?></td>
+                          <td> <?php echo $records['transtype'] ?> </td>
+                          <td>  <?php echo $records['recquantity'] ?> </td>
+                          <td> <?php echo $records['cost'] ?></td>
+                          <th> <?php if($records['supname'] != NULL){echo $records['supname'];}else echo $records['fname'] ?> </th>
+                          <th><?php echo $records['stock'] ?> </th>
+                          <th> <?php echo $records['remarks'] ?> </th>
                         </tr>
+                    <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- end product list -->
